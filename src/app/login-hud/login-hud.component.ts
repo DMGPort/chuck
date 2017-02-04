@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../data.service';
+import { DialogService } from '../dialog.service';
 
 @Component({
   selector: 'app-login-hud',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginHudComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private dataService: DataService,
+    private dialogService: DialogService
+  ) { }
 
   ngOnInit() {
+  }
+
+  openJokeDialog(){
+    let message = "0";
+    this.dataService.getJoke();
+    this.dialogService.openDynamic(message);
   }
 
 }
