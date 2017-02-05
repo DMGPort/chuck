@@ -13,10 +13,8 @@ export class DialogService {
   
 
   openDynamic(message: string){
-    if(message != "0"){
-      this.dataService.dynamicDialogMessages = message;
-      this.dialog.open(DialogComponent);
-    }
+    this.dataService.dynamicDialogMessages = message;
+    this.dialog.open(DialogComponent);
   }
 
   closeDialogTimeout(){

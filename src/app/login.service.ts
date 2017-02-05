@@ -14,6 +14,7 @@ export class LoginService {
   public isAdmin = false;
   public displayName: string = '';
   public photoUrl: string = '';
+  private errorDuringLogin = false;
 
   constructor(
     private af: AngularFire,
@@ -35,7 +36,23 @@ export class LoginService {
     }
     return authState;
   }
+  preLogin(){
+        if (this.isAuthenticated) {
+      this.router.navigate(['/home']);
 
+    } else {
+      this.login().then((authState) => {
+        if (authState && authState.uid) {
+          let message: string = "Login successful for " + authState.auth.displayName;
+          this.dialogService.openDynamic(message);
+          this.dialogService.closeDialogTimeout();
+          this.router.navigate(['/game']);
+        } else {
+          this.errorDuringLogin = true;
+        }
+      })
+    };
+  }
   login(): firebase.Promise<FirebaseAuthState> {
 
     const idToken = localStorage.getItem('idToken');

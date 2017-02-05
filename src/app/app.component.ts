@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { DataService } from './data.service';
+import { DialogService } from './dialog.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  constructor(
+    private dataService: DataService,
+    private dialogService: DialogService
+  ) { }
+
+  openJokeDialog(){
+    this.dataService.getJoke();
+    this.dialogService.openDynamic(this.dataService.dynamicDialogMessages);
+  }
 }

@@ -17,9 +17,9 @@ import { GameComponent } from './game/game.component';
 import { LoginHudComponent } from './login-hud/login-hud.component';
 
 export const firebaseConfig = {
-      apiKey: "",
-      authDomain: "",
-      databaseURL: "",
+      apiKey: " AIzaSyCvNaZEWqsWeYQmTpJ13mmOVeeMG4mfrUM",
+      authDomain: "chuck-9a2df.firebaseapp.com",
+      databaseURL: "https://chuck-9a2df.firebaseio.com/",
       storageBucket: ""
 };
 export const firebaseAuthConfig = {
@@ -42,7 +42,11 @@ export const firebaseAuthConfig = {
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     ChuckRoutingModule
   ],
-  providers: [  DataService, DialogService, LoginService, appRoutingProviders ],
+  providers: [   
+    DataService, 
+    DialogService, 
+    LoginService, 
+    appRoutingProviders ],
   bootstrap: [AppComponent],
   entryComponents:[
       DialogComponent
