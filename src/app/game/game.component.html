@@ -1,3 +1,27 @@
-<p>
-  game
-</p>
+<div class="container">
+  <md-card class="no-style">
+    <md-card-subtitle>{{ loginService.displayName }}</md-card-subtitle>
+    <img md-card-avatar [src]='loginService.photoUrl'>  
+    <span class="playingCard {{ pCard }}"></span>
+  </md-card>
+  <md-card-actions *ngIf="gameStopped == true">
+    <button md-raised-button (click)="playerStarts()">Player First</button>
+    <button md-raised-button (click)="chuckStarts()">Chuck First</button>
+  </md-card-actions>
+  <md-card-actions *ngIf="gameStopped != true">
+    <button md-raised-button>In play...</button>
+  </md-card-actions>
+  <md-card class="no-style">
+    <md-card-subtitle> Chuck Norris </md-card-subtitle>    
+    <img md-card-avatar src='http://www.sickchirpse.com/wp-content/uploads/2016/09/Chuck-Norris.jpg'>    
+    <span class="playingCard {{ cCard }}"></span>
+  </md-card>
+  <md-card class="no-style">
+    <md-card-content>
+      {{ joke }}
+    </md-card-content>
+  </md-card>
+  <md-card-actions *ngIf="gameStopped == true">
+    <app-login-hud></app-login-hud>
+  </md-card-actions>
+</div>

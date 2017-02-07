@@ -1,0 +1,82 @@
+.container{
+    text-align: center;
+}
+.playingCard {
+  display: block;
+  position: relative;
+  border: 1px solid #000;
+  border-radius: .3em;
+  text-align: center;
+  margin-top: 20px;
+  height: 115px;
+  width: 83px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#game *{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/*card sprites*/
+
+.card {
+  background: url('full_deck.png') no-repeat;
+  width: 83px;
+  height: 115px;
+}
+.back {
+  background: url('back_of_card.png') no-repeat;
+  background-position-x: -1px;
+}
+.diamond {
+  background-position-y: 0px;
+}
+.club {
+  background-position-y: -115px;
+}
+.heart {
+  background-position-y: -230px;
+}
+.spade {
+  background-position-y: -345px;
+}
+.ace {
+  background-position-x: 0px;
+}
+.two {
+  background-position-x: -93px;
+}
+.three {
+  background-position-x: -186px;
+}
+.four {
+  background-position-x: -279px;
+}
+.five {
+  background-position-x: -372px;
+}
+.six {
+  background-position-x: -465px;
+}
+.seven {
+  background-position-x: -558px;
+}
+.eight {
+  background-position-x: -651px;
+}
+.nine {
+  background-position-x: -744px;
+}
+.ten {
+  background-position-x: -837px;
+}
+.jack {
+  background-position-x: -930px;
+}
+.queen {
+  background-position-x: -1023px;
+}
+.king {
+  background-position-x: -1116px;
+}

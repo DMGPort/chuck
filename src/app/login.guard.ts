@@ -11,8 +11,6 @@ export class LoggedInGuard implements CanActivate {
     ){}
     
     canActivate(): boolean{   
-        console.log("Guard function has been invoked");
-
         let authenticated = false;
 
         if (this.loginService.isAuthenticated) {
@@ -21,7 +19,6 @@ export class LoggedInGuard implements CanActivate {
         else {
             this.router.navigate(['/home']);
         }
-        console.log("Returning from Guard function with: " + authenticated);
         return authenticated;
     }
     

@@ -8,6 +8,7 @@ import { ChuckRoutingModule, appRoutingProviders } from './chuck-routing.module'
 
 import { LoginService } from './login.service';
 import { DataService } from './data.service';
+import { StatsService } from './stats.service';
 import { DialogService } from './dialog.service';
 import { DialogComponent } from './dialog/dialog.component';
 
@@ -15,6 +16,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { LoginHudComponent } from './login-hud/login-hud.component';
+import { StatsComponent } from './stats/stats.component';
 
 export const firebaseConfig = {
       apiKey: " AIzaSyCvNaZEWqsWeYQmTpJ13mmOVeeMG4mfrUM",
@@ -32,7 +34,8 @@ export const firebaseAuthConfig = {
     AppComponent,
     HomeComponent,
     GameComponent,
-    LoginHudComponent
+    LoginHudComponent,
+    StatsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ export const firebaseAuthConfig = {
     ChuckRoutingModule
   ],
   providers: [   
-    DataService, 
+    DataService,
+    StatsService,
     DialogService, 
     LoginService, 
     appRoutingProviders ],

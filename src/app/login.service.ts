@@ -43,6 +43,7 @@ export class LoginService {
     } else {
       this.login().then((authState) => {
         if (authState && authState.uid) {
+          console.log(authState)          
           let message: string = "Login successful for " + authState.auth.displayName;
           this.dialogService.openDynamic(message);
           this.dialogService.closeDialogTimeout();
@@ -53,9 +54,11 @@ export class LoginService {
       })
     };
   }
+  idTok: string;
   login(): firebase.Promise<FirebaseAuthState> {
 
     const idToken = localStorage.getItem('idToken');
+    this.idTok = idToken;
     const accessToken = localStorage.getItem('accessToken');
 
     if (idToken && accessToken) {
@@ -78,7 +81,7 @@ export class LoginService {
       return this.af.auth.login({
         method: AuthMethods.Popup
       }).then((authState) => {
-        return this.storeAuthInfo(authState);    
+        return this.storeAuthInfo(authState);  
       }).catch((err) => {
         console.log(err);
       });

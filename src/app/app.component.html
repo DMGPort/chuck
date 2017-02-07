@@ -1,12 +1,4 @@
-<button md-button routerLink="/home">Home</button>
-<button md-button routerLink="/game">Game</button>
-<button md-button (click)="openJokeDialog()">Joke</button>
-<app-login-hud></app-login-hud>
-<app-home></app-home>
-<app-game></app-game>
-<md-card id="outlet">
-  <md-card-content>
+<app-stats></app-stats>
+<div id="outlet">
     <router-outlet></router-outlet>
-  </md-card-content>
-  <md-card-subtitle>Router Outlet</md-card-subtitle>
-</md-card>
+</div>

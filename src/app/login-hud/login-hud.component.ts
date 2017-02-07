@@ -31,10 +31,4 @@ export class LoginHudComponent implements OnInit {
     this.loginService.logout();
   }
 
-  openJokeDialog(){
-    let message = "0";
-    this.dataService.getJoke();
-    this.dialogService.openDynamic(message);
-  }
-
 }

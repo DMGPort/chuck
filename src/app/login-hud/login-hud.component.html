@@ -1,19 +1,6 @@
-<div class="account">
-  <md-card *ngIf='loginService.isAuthenticated'>
-    <span mdTooltip="{{ loginService.displayName }}">
-      <img md-card-avatar  [mdMenuTriggerFor]="account" [src]='loginService.photoUrl'>
-    </span>
-    <md-card-footer *ngIf="loginService.isAdmin">Admin</md-card-footer>
-    <md-menu #account="mdMenu">
-      <button md-menu-item (click)="logOut()">LogOut</button>
-    </md-menu>
-  </md-card>
-  <md-card *ngIf='!loginService.isAuthenticated'>
-    <span mdTooltip="{{ loginService.displayName }}">
-      <img md-card-avatar  [mdMenuTriggerFor]="logIn" src="https://image.freepik.com/free-icon/male-user-shadow_318-34042.jpg">
-    </span>
-    <md-menu #logIn="mdMenu">
-      <button md-menu-item (click)="login()">Login</button>
-    </md-menu>
-  </md-card>
-</div>
+<md-card class="no-style" *ngIf='loginService.isAuthenticated'>
+  <button md-raised-button (click)="logOut()">LogOut</button>
+</md-card>
+<md-card class="no-style" *ngIf='!loginService.isAuthenticated'>
+  <button md-raised-button (click)="login()">Login</button>
+</md-card>
