@@ -22,12 +22,12 @@
 /*card sprites*/
 
 .card {
-  background: url('full_deck.png') no-repeat;
+  background: url('https://firebasestorage.googleapis.com/v0/b/chuck-9a2df.appspot.com/o/full_deck.png?alt=media&token=2802c429-c68c-449a-aaf8-9ab359ee6d22') no-repeat;
   width: 83px;
   height: 115px;
 }
 .back {
-  background: url('back_of_card.png') no-repeat;
+  background: url('https://firebasestorage.googleapis.com/v0/b/chuck-9a2df.appspot.com/o/back_of_card.png?alt=media&token=4039dbf1-7d07-4611-a475-0b893fb1bf30') no-repeat;
   background-position-x: -1px;
 }
 .diamond {
