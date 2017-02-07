@@ -27,6 +27,7 @@ export class LoginService {
   private storeAuthInfo(authState: FirebaseAuthState): FirebaseAuthState {
     if (authState) {
       this.displayName = authState.auth.displayName;
+      this.dataService.name = authState.auth.displayName;
       this.photoUrl = authState.auth.photoURL;
       this.isAuthenticated = true;
       if (authState.google) {
@@ -37,13 +38,21 @@ export class LoginService {
     return authState;
   }
   preLogin(){
-        if (this.isAuthenticated) {
+    if (this.isAuthenticated) {
       this.router.navigate(['/home']);
 
     } else {
       this.login().then((authState) => {
         if (authState && authState.uid) {
-          console.log(authState)          
+          this.idTok = authState.uid;
+          this.item = this.af.database.object('/users/'+  authState.uid, { preserveSnapshot: true });
+          this.item.subscribe(snapshot => {
+              let count = snapshot.val().losses;
+              this.af.database.object('/users/'+ authState.uid).set({
+                    name: this.displayName,
+                    losses: count
+              });         
+           });
           let message: string = "Login successful for " + authState.auth.displayName;
           this.dialogService.openDynamic(message);
           this.dialogService.closeDialogTimeout();
@@ -58,7 +67,6 @@ export class LoginService {
   login(): firebase.Promise<FirebaseAuthState> {
 
     const idToken = localStorage.getItem('idToken');
-    this.idTok = idToken;
     const accessToken = localStorage.getItem('accessToken');
 
     if (idToken && accessToken) {
@@ -97,5 +105,20 @@ export class LoginService {
     localStorage.setItem('accessToken', '');
     this.router.navigate(['/home']);
   }
+  item: any;
+  count: number;
+  addCount(uid){
+    this.item = this.af.database.object('/users/'+ uid, { preserveSnapshot: true });
+    this.item.subscribe(snapshot => {
+      this.count = (snapshot.val().losses);
+    });
+    var userId = firebase.auth().currentUser.uid;
+      this.af.database.object('/users/'+ uid).set({
+        name: this.displayName,
+        losses: this.count + 1
+      });   
+  }
+
+
 
 }

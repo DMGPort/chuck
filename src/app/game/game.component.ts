@@ -54,9 +54,12 @@ export class GameComponent implements OnInit {
     return Math.round(Math.random() * (max - min) + min);
   }
 
-  logWin(displayName){
-    let idtoken = this.loginService.idTok;
-    this.statsService.addWin(displayName, idtoken);
+  logWin(displayName, idTok){
+    this.statsService.addWin(displayName, idTok);
+  }
+
+  addLoss(iud){
+    this.loginService.addCount(iud);
   }
   
   chuckStarts(){
@@ -85,7 +88,7 @@ export class GameComponent implements OnInit {
           this.gameStopped = true;
           this.snackBar("Chuck Norris" , "Winner!");
           this.getJoke();
-          this.logWin(this.loginService.displayName);
+          this.addLoss(this.loginService.idTok);
         }, 300)
       },400)
   }
@@ -115,7 +118,7 @@ export class GameComponent implements OnInit {
           this.gameStopped = true;
           this.snackBar("Chuck Norris" , "Wins!");
           this.getJoke();
-          this.logWin(this.loginService.displayName);          
+          this.addLoss(this.loginService.idTok);         
         }, 300)
       },400)
   }

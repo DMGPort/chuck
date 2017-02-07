@@ -13,9 +13,5 @@ export class AppComponent {
     private dataService: DataService,
     private dialogService: DialogService
   ) { }
-
-  openJokeDialog(){
-    this.dataService.getJoke();
-    this.dialogService.openDynamic(this.dataService.dynamicDialogMessages);
-  }
+  
 }
