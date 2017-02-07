@@ -49,7 +49,7 @@ export class GameComponent implements OnInit {
     this.loginService.logout();
   }
   getJoke(){
-      this.http.get('http://api.icndb.com/jokes/random?')
+      this.http.get('https://api.icndb.com/jokes/random?')
         .map(res => res.json())
           .subscribe((joke) => {
             this.joke = joke.value.joke.replace(/&quot;/g, '\"');;
