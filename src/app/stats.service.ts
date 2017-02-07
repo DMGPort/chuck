@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { DataService } from './data.service';
+import { User } from './user';
 
 @Injectable()
 export class StatsService {
@@ -12,29 +13,49 @@ export class StatsService {
         private dataService: DataService
         
   ) {
-    this.numberOfWins = af.database.list('/users');    
-    //this.categories = af.database.list('/store/categories');
-    this.users = af.database.list('/users/', { preserveSnapshot: true });
+
    }
 
-  numberOfWins: FirebaseListObservable<any[]>;
-  gamesPlayed:number = 0;
-  gamesStatsUrl: string = 'https://chuck-9a2df.firebaseio.com';
-  users: FirebaseListObservable<any[]>;
-  loss:number;
-
-  addWin(displayName : string, uid: string){
-    this.af.database.object('/data')
-      .subscribe(snapshots => {
-        snapshots.forEach(snapshot => {
-          console.log(snapshot.val().losses);
-        });
-      })
-      this.af.database.object('/data').set({
-          losses: 0
-      });  
-      console.log(this.loss)
-
+  numberOfWins: FirebaseListObservable<number[]>;
+  totalChuckWins: number;
+  totalLosses: number
+  buildChuckWins(){
+      this.getUsers()
+        .subscribe(users =>{
+          this.totalChuckWins = 0;          
+          for(let x = 0; x < users.length ; x++ ){
+            this.totalChuckWins += (users[x].losses);
+          }
+        })
+  }
+  messageArray: User[];
+  buildChuckMessage(){
+    this.messageArray = [];
+      this.getUsers()
+        .subscribe(users =>{
+          this.totalChuckWins = 0;          
+          for(let x = 0; x < users.length ; x++ ){
+            let us: User = {
+              name: users[x].name,
+              uid: users[x].uid,
+              message: users[x].message
+            }
+            this.messageArray.push(us);
+          }
+        })
+  }
+  userStats(uid){
+    this.getUserStat(uid)
+      .subscribe(user => this.totalLosses = (user[0].$value))
+  }
+  getUserStat(uid){
+    return this.af.database.list('/users/'+ uid);
+  }
+  getUsers(){
+    return this.af.database.list('/users');
+  }
+  getLosses(name: string){
+    return this.af.database.list('/store/'+ name);
   }
 
 }

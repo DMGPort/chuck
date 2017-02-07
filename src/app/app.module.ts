@@ -17,6 +17,8 @@ import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { LoginHudComponent } from './login-hud/login-hud.component';
 import { StatsComponent } from './stats/stats.component';
+import { AboutComponent } from './about/about.component';
+import { StatsBurgerComponent } from './stats-burger/stats-burger.component';
 
 export const firebaseConfig = {
       apiKey: " AIzaSyCvNaZEWqsWeYQmTpJ13mmOVeeMG4mfrUM",
@@ -35,7 +37,9 @@ export const firebaseAuthConfig = {
     HomeComponent,
     GameComponent,
     LoginHudComponent,
-    StatsComponent
+    StatsComponent,
+    AboutComponent,
+    StatsBurgerComponent
   ],
   imports: [
     BrowserModule,

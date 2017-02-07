@@ -20,6 +20,8 @@ export class GameComponent implements OnInit {
 
   ngOnInit() {
     this.getJoke();
+    this.playerFlip = "back";
+    this.chuckFlip = "back";
   }
 
   gameStopped = true;
@@ -43,6 +45,9 @@ export class GameComponent implements OnInit {
       duration: 4500
       });
   }
+  logOut(){
+    this.loginService.logout();
+  }
   getJoke(){
       this.http.get('http://api.icndb.com/jokes/random?')
         .map(res => res.json())
@@ -52,10 +57,6 @@ export class GameComponent implements OnInit {
     }
   getRandomNumber(min, max){
     return Math.round(Math.random() * (max - min) + min);
-  }
-
-  logWin(displayName, idTok){
-    this.statsService.addWin(displayName, idTok);
   }
 
   addLoss(iud){
@@ -85,14 +86,16 @@ export class GameComponent implements OnInit {
           this.pRank = this.checkRank(this.pRankNumber);
           this.playerFlip = "card";      
           this.pCard = this.playerFlip + this.pSuit + this.pRank;    
-          this.gameStopped = true;
-          this.snackBar("Chuck Norris" , "Winner!");
-          this.getJoke();
           this.addLoss(this.loginService.idTok);
+          this.gameStopped = true;
+          let message = "Chuck has Won " + this.loginService.displayName + ": ";
+          let action = this.statsService.totalLosses +  " times";
+          this.snackBar(message, action);
+          this.getJoke(); 
         }, 300)
       },400)
   }
-  playerStarts(){
+  playerStarts(){   
     this.gameStopped = false;
     this.cCard = "back";
     this.pCard = "back";
@@ -115,10 +118,12 @@ export class GameComponent implements OnInit {
           this.cRank = this.checkRank(this.cRankNumber);
           this.chuckFlip = "card";      
           this.cCard = this.chuckFlip + this.cSuit + this.cRank;    
-          this.gameStopped = true;
-          this.snackBar("Chuck Norris" , "Wins!");
-          this.getJoke();
           this.addLoss(this.loginService.idTok);         
+          this.gameStopped = true;
+          let message = "Chuck has Won " + this.loginService.displayName + ": ";
+          let action = this.statsService.totalLosses +  " times";
+          this.snackBar(message, action);
+          this.getJoke();
         }, 300)
       },400)
   }

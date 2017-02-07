@@ -1,0 +1,27 @@
+
+<div class="fam">
+  <md-card class="mother">
+      <img id="chuck" md-card-lg-image src="https://st.navalny.com/media/bim/3d/69/3d693b3e357c4e80b55ab14dd45b5410.jpg">
+      <md-card-title>The Chuck</md-card-title>
+      <md-card-subtitle>
+        By: 
+        <a href="https://plus.google.com/u/0/+Dav%C3%AD%C3%B0M%C3%A1rGunnarsson" target="_blank"><img id="avatar" md-card-avatar src='https://lh3.googleusercontent.com/-a-xQtH8hXpA/AAAAAAAAAAI/AAAAAAAAAPE/thpYPieoPgs/photo.jpg'></a>
+        Davíð Már Gunnarsson</md-card-subtitle>
+      <md-card-subtitle><a href="https://github.com/diddimar/chuck" target="_blank">Project on GitHub</a></md-card-subtitle>
+  </md-card>
+  <md-card class="mother" *ngIf="loginService.isAuthenticated">
+    <form>
+      <md-input-container>
+        <textarea class="message" md-input type="text" #message placeholder="Leave A Message" autocomplete="off"></textarea>
+      </md-input-container><br />
+      <md-input-container>
+        <input md-input disabled type="text" value="{{ loginService.displayName }}" md-maxlength="50" required autocomplete="off"/>
+      </md-input-container><br />
+      <button md-raised-button (click)="onSubmitMessage(message)">Submit</button>
+    </form>
+  </md-card>
+  <md-card *ngFor="let message of statsService.messageArray">
+    <md-card-subtitle>{{ message.name }} left a comment</md-card-subtitle>
+    <md-card-content>{{ message.message }}</md-card-content>
+  </md-card>
+</div>

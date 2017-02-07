@@ -3,6 +3,7 @@ import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angu
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { DataService } from './data.service';
+import { StatsService } from './stats.service';
 import { DialogService } from './dialog.service';
 
 import 'rxjs/add/operator/toPromise';
@@ -18,6 +19,7 @@ export class LoginService {
 
   constructor(
     private af: AngularFire,
+    private statsService: StatsService,
     private dataService: DataService,
     private dialogService: DialogService,
     private router: Router
@@ -45,13 +47,17 @@ export class LoginService {
       this.login().then((authState) => {
         if (authState && authState.uid) {
           this.idTok = authState.uid;
+          this.statsService.userStats(authState.uid);
+          this.statsService.buildChuckMessage();
           this.item = this.af.database.object('/users/'+  authState.uid, { preserveSnapshot: true });
           this.item.subscribe(snapshot => {
               let count = snapshot.val().losses;
+              let mes = (snapshot.val().message);
               this.af.database.object('/users/'+ authState.uid).set({
                     name: this.displayName,
-                    losses: count
-              });         
+                    losses: count,
+                    message: mes
+              });
            });
           let message: string = "Login successful for " + authState.auth.displayName;
           this.dialogService.openDynamic(message);
@@ -68,9 +74,7 @@ export class LoginService {
 
     const idToken = localStorage.getItem('idToken');
     const accessToken = localStorage.getItem('accessToken');
-
     if (idToken && accessToken) {
-
       const authConfig = {
         method: AuthMethods.OAuthToken,
         provider: AuthProviders.Google
@@ -107,16 +111,37 @@ export class LoginService {
   }
   item: any;
   count: number;
+  mes: string;
   addCount(uid){
     this.item = this.af.database.object('/users/'+ uid, { preserveSnapshot: true });
     this.item.subscribe(snapshot => {
       this.count = (snapshot.val().losses);
+      this.mes = (snapshot.val().message);
     });
-    var userId = firebase.auth().currentUser.uid;
       this.af.database.object('/users/'+ uid).set({
         name: this.displayName,
-        losses: this.count + 1
-      });   
+        losses: this.count + 1,
+        message: this.mes
+      });
+      this.statsService.buildChuckWins();
+      this.statsService.userStats(uid);
+      
+  }
+  stuff: any;  
+  addMessage(uid: string, mess: string){
+    this.stuff = this.af.database.object('/users/'+ uid, { preserveSnapshot: true });
+    this.stuff.subscribe(snapshot => {
+      this.count = (snapshot.val().losses);
+      });
+      this.af.database.object('/users/'+ uid).set({
+        name: this.displayName,
+        losses: this.count,
+        message: mess
+    });
+      this.statsService.buildChuckMessage();    
+      //this.statsService.buildChuckWins();
+      //this.statsService.userStats(uid);
+      
   }
 
 

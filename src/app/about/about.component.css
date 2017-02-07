@@ -1,0 +1,22 @@
+.fam {
+    padding: 3em;
+    text-align: center;
+}
+.mother {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: flex-end; 
+    height: auto;
+}
+.message {
+    height: 100px;
+    width: 250px;
+    padding: 15px 10px;
+}
+#chuck{
+    margin: 20px;
+}
+#avatar{
+    margin: 0;
+}

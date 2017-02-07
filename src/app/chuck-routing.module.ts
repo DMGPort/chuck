@@ -5,10 +5,12 @@ import { LoggedInGuard } from './login.guard';
 
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
+import { AboutComponent } from './about/about.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
+    { path: 'about', component: AboutComponent },
     { path: 'game', component: GameComponent, canActivate: [ LoggedInGuard ] },
 ];
 

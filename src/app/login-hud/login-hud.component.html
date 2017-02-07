@@ -1,6 +1,7 @@
 <md-card class="no-style" *ngIf='loginService.isAuthenticated'>
   <button md-raised-button (click)="logOut()">LogOut</button>
+  <button md-raised-button routerLink="/game">To Game</button>
 </md-card>
 <md-card class="no-style" *ngIf='!loginService.isAuthenticated'>
-  <button md-raised-button (click)="login()">Login</button>
+  <button md-raised-button (click)="login()">Start</button>
 </md-card>
